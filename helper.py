@@ -1,3 +1,15 @@
+def InputArray(str):
+    array = input(str)
+    array = array.replace("[", "")
+    array = array.replace(" ", "")
+    array = array.replace("]", "")
+    print(array)
+    array_sep = array.split(",")
+    res = []
+    for i in range(0, len(array_sep)):
+        res.append(int(array_sep[i]))
+    return res
+
 def EuclideEtendu(a, b):
     (r, u, v, rp, up, vp) = (a, 1, 0, b, 0, 1)
     q = 0
