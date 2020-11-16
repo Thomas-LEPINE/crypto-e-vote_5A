@@ -68,143 +68,18 @@ else: print("Not OK!")
 
 
 print(Hash("BIENVENUEAPOLYTECHANGERS")) # YFFEGDKL
-import random
-import secrets
-import string
-alphabet = str.upper(string.ascii_letters)
-def Prep():
-    N = ''.join(secrets.choice(alphabet) for i in range(12))
-    return N
 
-class Cle(object):
-    def __init__(self):
-        self.N = Prep()
-        self.hash = None
-        self.voted = False
-        return
-    def SetHash(self, hash):
-        self.hash = hash
 
-class Commissaire(object):
-    def __init__(self):
-        self.lst = []
-        self.distributed = 0
-        for i in range(0, 20):
-            self.lst.append(Cle())
-        return
 
-    def Distribute(self):
-        val = self.lst[self.distributed]
-        self.distributed += 1
-        return val
 
-    def ReceiveElecteurVal(self, cle):
-        for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N:
-                self.lst[i].hash = cle.hash
-        return
+from administrateur import *
+from Decompteur import *
+from electeur import *
+from anonymiseur import *
+from commissaire import *
 
-    def Verify(self, cle):
-        for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N and self.lst[i].hash == cle.hash:
-                return True
-        return False
-    def HasVoted(self, cle):
-        for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N and self.lst[i].hash == cle.hash:
-                if self.lst[i].voted == True:
-                    print("[Commissaire] Electeur a déjà voté !")
-                    return False
-                self.lst[i].voted = True
-                return True
-        return False
 
-class Electeur(object):
-    def __init__(self):
-        return
 
-    def ReceiveCode(self, commissaire, code):
-        self.n1 = code
-        self.n2 = Prep()
-        self.vc = None
-        self.n1.SetHash(Hash(self.n2))
-        commissaire.ReceiveElecteurVal(self.n1)
-
-    def Vote(self, anon, dec, admin, comm, vote):
-        if admin.Contact(self.n1, comm):
-            print("Code valid !")
-            self.vote = vote + self.n2
-
-            # Validate blind signature
-            newm = []
-            for i in range(0, len(self.vote)):
-                val = (ord(self.vote[i]) - 65) % 26
-                mp = val * pow(adm.dec.k, adm.dec.e) % adm.dec.n
-                newm.append(mp)
-            mpp = admin.BlindSign(newm)
-
-            for i in range(0, len(mpp)):
-                (kinv, u, v) = EuclideEtendu(adm.dec.k, adm.dec.n)
-                kinv = u % adm.dec.n
-                s = (mpp[i] * kinv) % adm.dec.n
-                if(pow(s, adm.dec.e)%adm.dec.n != (ord(self.vote[i]) - 65)):
-                    print("COULD NOT VALIDATE SIGNATURE (i=" + str(i) + ")")
-                    return
-            print("[Electeur] Signature validée !")
-
-            self.vc = dec.Encrypt(self.vote)
-            print(self.vc)
-            anon.ReceiveVote(self.n1, self.vc, comm)
-            return
-        else:
-            print("Code not valid!")
-            return
-
-class Administrator(object):
-    def __init__(self):
-        self.dec = Decompteur(53, 11, 27, 5)
-        return
-    def Contact(self, cle, commissaire):
-        return commissaire.Verify(cle)
-    def BlindSign(self, mp):
-        array = []
-        for i in range(0, len(mp)):
-            array.append(pow(mp[i], self.dec.d) % self.dec.n)
-        return array
-
-class Decompteur(object):
-    def __init__(self, p, q, e, k):
-        self.p = p
-        self.q = q
-        self.e = e
-        self.psy = (self.p - 1) * (self.q - 1)
-        self.n, self.d, self.e = RSA(self.p, self.q, self.e)
-        self.k = k
-        a, b, c = EuclideEtendu(self.k, self.n)
-        if(a != 1): print("Not correct k !!")
-        else: print("Correct K")
-        print(self.p, self.q, self.e, self.psy, self.n, self.d, self.k)
-
-    def Encrypt(self, msg):
-        val = encryptRSA(msg, self.n, self.e, 2)
-        return val
-
-    def Decompte(self, anon):
-        for i in anon.votes:
-            val = decryptRSA(i, self.d, self.n, 2)
-            print(val)
-        return
-
-class Anonymiseur(object):
-    def __init__(self):
-        self.votes = []
-        return
-
-    def ReceiveVote(self, cle, vote, commissaire):
-        if(not comm.HasVoted(cle)):
-            print("[Anonymiseur] La vérification de la clé a échoué.")
-            return
-        self.votes.append(vote)
 
 dec = Decompteur(53, 11, 27, 5)
 

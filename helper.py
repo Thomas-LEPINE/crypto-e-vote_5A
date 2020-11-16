@@ -77,3 +77,11 @@ def Hash(msg):
             array_2.append(val)
             hash += chr((array_1[i] + val) % 26 + 65)
     return hash
+
+import random
+import secrets
+import string
+alphabet = str.upper(string.ascii_letters)
+def Prep():
+    N = ''.join(secrets.choice(alphabet) for i in range(12))
+    return N
