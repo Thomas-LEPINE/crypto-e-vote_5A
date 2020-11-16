@@ -14,20 +14,33 @@ class Commissaire(object):
         self.distributed += 1
         return val
 
-    def ReceiveElecteurVal(self, cle):
+    def ReceiveElecteurVal(self):
+        print('Entrez N1:')
+        N = input()
+        print('Entrez le Hash:')
+        hash = input()
         for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N:
-                self.lst[i].hash = cle.hash
+            if self.lst[i].N == N:
+                self.lst[i].hash = hash
         return
 
-    def Verify(self, cle):
+    def Verify(self):
+        print('Entrez N1:')
+        N = input()
+        print('Entrez le Hash:')
+        hash = input()
         for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N and self.lst[i].hash == cle.hash:
+            if self.lst[i].N == N and self.lst[i].hash == hash:
                 return True
         return False
-    def HasVoted(self, cle):
+
+    def HasVoted(self):
+        print('Entrez N1:')
+        N = input()
+        print('Entrez le Hash:')
+        hash = input()
         for i in range(0, len(self.lst)):
-            if self.lst[i].N == cle.N and self.lst[i].hash == cle.hash:
+            if self.lst[i].N == N and self.lst[i].hash == hash:
                 if self.lst[i].voted == True:
                     print("[Commissaire] Electeur a déjà voté !")
                     return False
