@@ -1,3 +1,7 @@
+import secrets
+import string
+ALPHABET = str.upper(string.ascii_letters) # ALPHABET # Chaine de caractère avec toutes les lettre de l'alpabet
+
 def EuclideEtendu(a, b):
     (r, u, v, rp, up, vp) = (a, 1, 0, b, 0, 1)
     q = 0
@@ -50,21 +54,31 @@ def decryptRSA(msg, d, n, bloc_size):
         message += (chr(val + 65))
     return message
 
-# Q14
+
+'''
+Hashage TTH()
+input = msg : string (Chaine claire)
+output = hash : string (Chaine hachée)
+'''
 def Hash(msg):
+    NB_COLONNES = 4
+    NB_LIGNES = 4
     msg = msg.upper()
     array = []
-    blocksize = 16
-    for i in range(0, len(msg), blocksize):
+    blocksize = NB_COLONNES*NB_COLONNES
+
+    for i in range(0, len(msg), blocksize) :
         array.append(msg[i:i+blocksize:1].ljust(blocksize, 'A'))
+
     hash = ""
+
     for message in array:
         array_1 = []
         for i in range(0, 4):
-            val = (ord(message[i]) + ord(message[i+4]) + ord(message[i+8]) + ord(message[i+12]) - 4*65)%26
+            val = (ord(message[i]) + ord(message[i+4]) + ord(message[i+8]) + ord(message[i+12]) - NB_COLONNES*65)%26
             array_1.append(val)
         newmsg = ""
-        for i in range(0, 16, 4):
+        for i in range(0, blocksize, NB_COLONNES):
             if i == 0: val = message[i+1] + message[i+2] + message[i+3] + message[i]
             if i == 4: val = message[i+2] + message[i+3] + message[i] + message[i+1]
             if i == 8: val = message[i+3] + message[i] + message[i+1] + message[i+2]
@@ -73,15 +87,15 @@ def Hash(msg):
         array_2 = []
 
         for i in range(0, 4):
-            val = (ord(newmsg[i]) + ord(newmsg[i+4]) + ord(newmsg[i+8]) + ord(newmsg[i+12]) - 4*65)%26
+            val = (ord(newmsg[i]) + ord(newmsg[i+4]) + ord(newmsg[i+8]) + ord(newmsg[i+12]) - NB_COLONNES*65)%26
             array_2.append(val)
             hash += chr((array_1[i] + val) % 26 + 65)
     return hash
 
-import random
-import secrets
-import string
-alphabet = str.upper(string.ascii_letters)
+
+'''
+Génère le N1
+'''
 def Prep():
-    N = ''.join(secrets.choice(alphabet) for i in range(12))
+    N = ''.join(secrets.choice(ALPHABET) for i in range(12))
     return N
