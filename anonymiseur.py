@@ -8,4 +8,11 @@ class Anonymiseur(object):
     def ReceiveVote(self):
         print('Entrez le vote:')
         vote=input()
-        self.votes.append(vote)
+        if self.verifN1() == True :
+            self.votes.append(vote)
+        else :
+            print("C'est mort")
+           
+    def verifN1() :
+        Commissaire.Verify()
+        return True

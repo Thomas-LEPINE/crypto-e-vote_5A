@@ -2,7 +2,7 @@ import secrets
 import string
 import copy
 
-ALPHABET = str.upper(string.ascii_letters) # ALPHABET # Chaine de caractère avec toutes les lettre de l'alpabet
+ALPHABET = str.upper(string.ascii_letters) # Chaine de caractère avec toutes les lettre de l'alpabet
 
 def InputArray(str):
     array = input(str)
@@ -115,7 +115,6 @@ def Hash(msg):
             
         IV = copy.deepcopy(newIV) # Définition du nouveau IV par copy
     return hash
-
 
 '''
 Génère le N1
