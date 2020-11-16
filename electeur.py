@@ -35,7 +35,7 @@ class Electeur(object):
                 mp = val * pow(k, e) % n
                 newm.append(mp)
             print("m' = " + str(newm))
-
+#[0, 515, 256, 324, 379, 13, 366, 528, 0, 541, 94, 324, 13]
             mpp = InputArray("Entrez mpp")
 
             #for i in range(0, len(newm)):
