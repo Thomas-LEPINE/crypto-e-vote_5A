@@ -45,7 +45,7 @@ def decryptRSA(msg, d, n, bloc_size):
         m += str(uncrypted).zfill(bloc_size)
     message=""
     for i in range(0, len(m), bloc_size):
-        if(i == 0 and int(m[i] + m[i+1]) == 0): continue
+        #if(i == 0 and int(m[i] + m[i+1]) == 0): continue
         val = int(m[i] + m[i+1])
         message += (chr(val + 65))
     return message
