@@ -23,12 +23,12 @@ def blockSize(n):
 def RSA(p, q, e):
     n = p * q
     psy = (p-1) * (q-1)
-    # x, u, v = EuclideEtendu(e, psy)
-    # d = u % psy
     d = inv_mod(e, psy)
     return (n, d, e)
 
-def encryptRSA(msg, n, e, bloc_size):
+def encryptRSA(msg, n, e, bloc_size=None):
+    if bloc_size == None :
+        bloc_size = blockSize(n)
     msg = msg.upper()
     m = ""
     for i in range(0, len(msg)):
@@ -46,7 +46,3 @@ def encryptRSA(msg, n, e, bloc_size):
     for i in range(0, len(array_nb)):
         array_encrypted.append(pow(int(array_nb[i]), e) % n)
     return array_encrypted
-
-n, d, e = RSA(53, 11, 3)
-print(RSA(53, 11, 3))
-print(encryptRSA("POLYTECHANGERS", n, e, blockSize(n)+1))

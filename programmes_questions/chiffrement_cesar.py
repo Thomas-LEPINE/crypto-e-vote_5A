@@ -7,5 +7,3 @@ def cesar(m, k):
         else :
             msg += chr(((ord(cac) - 65) + k)%26 + 65)
     return msg
-
-print(cesar("CYBERSECPOLYTECHANGERS", ord("K")-65))

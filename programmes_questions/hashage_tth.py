@@ -47,3 +47,5 @@ def Hash(msg):
             
         IV = copy.deepcopy(newIV) # Définition du nouveau IV par copy
     return hash
+
+print(Hash("BIENVENUEAPOLYTECHANGERS"))

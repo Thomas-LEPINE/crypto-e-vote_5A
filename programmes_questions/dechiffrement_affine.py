@@ -12,7 +12,7 @@ def inv_mod(a, m):
     else:
         return x % m  # Retourne le modulo inverse de 2 nombres s'il existe
 
-def DechiffreAffine(msg, a, b):
+def dechiffreAffine(msg, a, b):
     msg = msg.upper()
     m = ""
     inv = inv_mod(a, 26)
@@ -23,20 +23,3 @@ def DechiffreAffine(msg, a, b):
             letter = ord(cac) - 65
             m += chr(( (inv) * (letter - b )) % 26 + 65)
     return m
-
-
-Alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-a = 3
-b = 10
-# CHIFFREMENT AFFINE :
-TextClair = "EXECUTE ORDER SIXTY SIX"
-chaineDechiffree = ""
-for lettre in TextClair:
-    if (lettre == " "):
-        chaineDechiffree += lettre
-    else:
-        chaineDechiffree += Alpha[(Alpha.index(lettre)*a + b)%26]
-
-print("CHAINE CHIFFRÉE :\n" + chaineDechiffree)
-
-print(DechiffreAffine(chaineDechiffree, a, b))
