@@ -71,7 +71,9 @@ def encryptRSA(msg, n, e, bloc_size):
         for j in range(1, bloc_size):
             if(i - j >= 0):  nb += m[i-j]
         array_nb.append(nb[::-1])
+    
     array_nb = array_nb[::-1]
+    print(array_nb)
     array_encrypted = []
     for i in range(0, len(array_nb)):
         array_encrypted.append(pow(int(array_nb[i]), e) % n)
@@ -84,37 +86,48 @@ def decryptRSA(msg, d, n, bloc_size):
         uncrypted = pow(val, d) % n
         m += str(uncrypted).zfill(bloc_size)
     message=""
+    array_nb = []
     for i in range(0, len(m), bloc_size):
-        if(i == 0 and int(m[i] + m[i+1]) == 0): continue
-        val = int(m[i] + m[i+1])
-        message += (chr(val + 65))
-    return message
+        #if(i == 0 and int(m[i] + m[i+1]) == 0): continue
+        message += m[i]
+        for j in range(1, bloc_size):
+            message += m[i+j]
+    #print(message)
+    ret = ""
+    for i in range(0, len(message), 2):
+        ret += chr(int(message[i] + message[i+1]) + 65)
 
-n, d, e = RSA(53, 11, 27)
+    #print(ret)
+    return ret
+
+n, d, e = RSA(53, 11, 3)
 print("n = " + str(n))
-res = encryptRSA("POLYTECHANGERS", n, e, 2)
+print("d = " + str(d))
+res = encryptRSA("POLYTECHANGERS", n, e, 3)
 print(res)
-print(decryptRSA(res, d, n, 2))
+print(decryptRSA(res, d, n, 3))
 # Avec 3, on a collisions des modulos (ici: 718 > 520). On a donc pas la garantie d'un message proprement chiffré / déchiffré.
 # Il faut prendre une taille de bloc < log10(n) (donc augmenter n ou diminuer la taille de bloc. Augmenter n est mieux)
 print("n = " + str(n))
-
+#exit()
 # Q13:
 # Ex: k = 5
 k = 5
 print(EuclideEtendu(5, 583))
-print("m   = 10")
-mp = 10*pow(k, e) % n
+print("m   = 50")
+mp = 50*pow(k, e) % n
 print("m'  = " + str(mp))
 mpp = pow(mp, d) % n
 print("m'' = " + str(mpp))
 (kinv, u, v) = EuclideEtendu(k, n)
 kinv = u % n
+print(kinv)
 s = mpp * kinv % n
 print("s = " + str(s))
-if(pow(s, e)%n == 10) :print("OK!")
+print(pow(s, e)%n)
+if(pow(s, e)%n == 50) :print("OK!")
 else: print("Not OK!")
-
+exit()
 import copy
 # Q14
 '''
