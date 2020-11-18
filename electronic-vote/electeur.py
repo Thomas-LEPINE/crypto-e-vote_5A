@@ -14,7 +14,7 @@ class Electeur(object):
 
     def Vote(self, anon, dec, admin, comm, vote):
         if admin.Contact(self.n1, comm):
-            print("Code valid !")
+            print("[Electeur] Code valid !")
             self.vote = vote + self.n2
 
             # Validate blind signature
@@ -39,5 +39,5 @@ class Electeur(object):
             anon.ReceiveVote(self.n1, self.vc, comm)
             return
         else:
-            print("Code not valid!")
+            print("[Electeur] Code not valid!")
             return

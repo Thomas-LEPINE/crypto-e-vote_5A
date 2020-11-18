@@ -19,7 +19,8 @@ class Decompteur(object):
         return val
 
     def Decompte(self, anon):
+        vote_final = []
         for i in anon.votes:
             val = decryptRSA(i, self.d, self.n, 2)
-            print(val)
-        return
+            vote_final.append(val[0])
+        return vote_final
