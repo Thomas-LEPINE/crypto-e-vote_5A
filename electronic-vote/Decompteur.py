@@ -18,9 +18,12 @@ class Decompteur(object):
         val = encryptRSA(msg, self.n, self.e, 2)
         return val
 
-    def Decompte(self, anon):
+    def Decompte(self, anon,comm):
         vote_final = []
         for i in anon.votes:
             val = decryptRSA(i, self.d, self.n, 2)
-            vote_final.append(val[0])
+            if comm.VerifyN2(val[1:])
+                vote_final.append(val[0])
+            else:
+                print("Vote ",i," non prit en compte")
         return vote_final

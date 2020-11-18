@@ -34,3 +34,10 @@ class Commissaire(object):
                 self.lst[i].voted = True
                 return True
         return False
+
+    def VerifyN2(self,N2):
+        HashN2=Hash(N2)
+        for c in self.lst:
+            if c.hash==HashN2:
+                return True
+        return False
