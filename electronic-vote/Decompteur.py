@@ -22,7 +22,7 @@ class Decompteur(object):
         vote_final = []
         for i in anon.votes:
             val = decryptRSA(i, self.d, self.n, 2)
-            if comm.VerifyN2(val[1:])
+            if comm.VerifyN2(val[1:]):
                 vote_final.append(val[0])
             else:
                 print("Vote ",i," non prit en compte")

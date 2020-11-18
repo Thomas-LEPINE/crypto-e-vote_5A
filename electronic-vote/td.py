@@ -28,4 +28,4 @@ el2.Vote(anon, dec, adm, comm, "A")
 el3.Vote(anon, dec, adm, comm, "B")
 el4.Vote(anon, dec, adm, comm, "F")
 
-print(dec.Decompte(anon),comm)
+print(dec.Decompte(anon,comm))
