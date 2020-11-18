@@ -5,9 +5,6 @@ from electeur import *
 from anonymiseur import *
 from commissaire import *
 
-
-
-
 dec = Decompteur(53, 11, 27, 5)
 
 comm = Commissaire()

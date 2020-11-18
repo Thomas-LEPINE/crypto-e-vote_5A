@@ -7,6 +7,3 @@ class Cle(object):
         return
     def SetHash(self, hash):
         self.hash = hash
-
-    def __str__(self):
-        return "[clé=" + self.N + ", hash=" + self.hash + "]"
