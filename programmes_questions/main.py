@@ -28,7 +28,7 @@ print(encryptRSA("POLYTECHANGERS", n, 3))
 print(decryptRSA([1, 303, 481, 34, 453, 564, 1, 498, 127, 115], 347, 583, 3))
 
 # ----------------------------- AVEUGLE
-print("\n SIGNEMENT AVEUGLE \n")
+print("\n SIGNATURE AVEUGLE \n")
 p = 5
 q = 11
 e = 27
